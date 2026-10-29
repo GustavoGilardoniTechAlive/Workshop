@@ -2,7 +2,8 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/pagesMetadata/1.1.0/schema.json",
   "pageOrder": [
     "resumenVentas",
-    "e1636bebbcd08848699e"
+    "e1636bebbcd08848699e",
+    "3e07560067540ee52397"
   ],
-  "activePageName": "resumenVentas"
+  "activePageName": "3e07560067540ee52397"
 }
