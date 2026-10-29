@@ -13,6 +13,11 @@ table Medidas
 		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
 		lineageTag: 3c7d3768-f959-59e8-958b-886bde8249ce
 
+	measure 'Cantidad Promedio' = AVERAGE(Ventas[Cantidad])
+		lineageTag: 5466f398-88a1-49bf-9c36-3b3be7f6a80d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	partition Medidas = m
 		mode: import
 		source =
