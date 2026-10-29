@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "VentasBicis"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "6e67d411-d7b8-4629-9007-46c48e96c1f1"
+  }
+}

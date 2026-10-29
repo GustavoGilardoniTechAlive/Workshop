@@ -1,0 +1,76 @@
+table Ventas
+	lineageTag: 1f695f91-5e68-5c9d-869b-8ca190da4821
+
+	column Fecha
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 7a1e72fd-a6be-5602-8d6f-dbce5e99110a
+		summarizeBy: none
+		sourceColumn: Fecha
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column TiendaID
+		dataType: int64
+		isHidden
+		lineageTag: 865713c6-6a86-5bd4-acfb-a092093c0ff6
+		summarizeBy: none
+		sourceColumn: TiendaID
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductoID
+		dataType: int64
+		isHidden
+		lineageTag: 54799c8e-494d-56f5-879f-9466539e1911
+		summarizeBy: none
+		sourceColumn: ProductoID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cantidad
+		dataType: int64
+		formatString: 0
+		lineageTag: 9b0516a8-d346-5346-a7bd-1e98e0817f27
+		summarizeBy: sum
+		sourceColumn: Cantidad
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Ventas = m
+		mode: import
+		source =
+				let
+				    // Datos sintéticos: 2 años x 4 tiendas = 2.920 filas.
+				    // List.Random con semilla: valores aleatorios pero reproducibles en cualquier PC.
+				    Inicio = #date(2025, 1, 1),
+				    NumFilas = 2920,
+				    Semilla = 42,
+				    Aleatorios = List.Buffer(List.Random(NumFilas, Semilla)),
+				    // Volumen relativo de cada tienda: Málaga, Sevilla, Madrid, Barcelona
+				    FactorTienda = {1.0, 0.8, 1.4, 1.2},
+				    Filas = List.Transform(
+				        {0..NumFilas - 1},
+				        (i) =>
+				            let
+				                dia = Number.IntegerDivide(i, 4),
+				                fecha = Date.AddDays(Inicio, dia),
+				                tienda = Number.Mod(i, 4) + 1,
+				                producto = Number.Mod(i * 7 + dia * 3, 8) + 1,
+				                temporada = if Date.Month(fecha) >= 4 and Date.Month(fecha) <= 9 then 1.5 else 1,
+				                base = Number.RoundDown(Aleatorios{i} * 5) + 1,   // entero aleatorio entre 1 y 5
+				                cantidad = Number.Round(base * temporada * FactorTienda{tienda - 1})
+				            in
+				                {fecha, tienda, producto, cantidad}
+				    ),
+				    Ventas = #table(
+				        type table [Fecha = date, TiendaID = Int64.Type, ProductoID = Int64.Type, Cantidad = Int64.Type],
+				        Filas
+				    )
+				in
+				    Ventas
+
+	annotation PBI_ResultType = Table
+

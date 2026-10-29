@@ -1,0 +1,58 @@
+table Producto
+	lineageTag: d1f1bd13-9f54-5a5a-9c0b-6a82945da364
+
+	column ProductoID
+		dataType: int64
+		lineageTag: d02172da-3d02-5a84-ba12-d500aac27f16
+		summarizeBy: none
+		sourceColumn: ProductoID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Producto
+		dataType: string
+		lineageTag: 2fb698fe-ebc5-5d6e-9c84-c1e259be39f0
+		summarizeBy: none
+		sourceColumn: Producto
+
+		annotation SummarizationSetBy = Automatic
+
+	column Categoria
+		dataType: string
+		lineageTag: 2878391f-ad7c-5705-ae5d-2042848d4c63
+		summarizeBy: none
+		sourceColumn: Categoria
+
+		annotation SummarizationSetBy = Automatic
+
+	column PrecioUnitario
+		dataType: double
+		formatString: #,0.00 €
+		lineageTag: 91694267-1784-5c26-af03-1defb6df5fa2
+		summarizeBy: none
+		sourceColumn: PrecioUnitario
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Producto = m
+		mode: import
+		source =
+				let
+				    Origen = #table(
+				        type table [ProductoID = Int64.Type, Producto = text, Categoria = text, PrecioUnitario = number],
+				        {
+				            {1, "Bici urbana", "Bicicletas", 450},
+				            {2, "Bici de montaña", "Bicicletas", 890},
+				            {3, "Bici eléctrica", "Bicicletas", 1890},
+				            {4, "Casco", "Accesorios", 59},
+				            {5, "Candado", "Accesorios", 35},
+				            {6, "Luces LED", "Accesorios", 25},
+				            {7, "Maillot", "Ropa", 45},
+				            {8, "Guantes", "Ropa", 19}
+				        }
+				    )
+				in
+				    Origen
+
+	annotation PBI_ResultType = Table
+

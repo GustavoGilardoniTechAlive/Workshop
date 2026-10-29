@@ -1,0 +1,53 @@
+table Tienda
+	lineageTag: fece89b9-ee5e-58db-99a1-774607bc24fe
+
+	column TiendaID
+		dataType: int64
+		lineageTag: 2328a054-0427-505b-b872-191c8fd445b0
+		summarizeBy: none
+		sourceColumn: TiendaID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Tienda
+		dataType: string
+		lineageTag: 730b9bc8-4bc6-58e3-85b7-8898e7115945
+		summarizeBy: none
+		sourceColumn: Tienda
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ciudad
+		dataType: string
+		lineageTag: a483526b-1b66-5c90-8cd4-19209aff108e
+		summarizeBy: none
+		sourceColumn: Ciudad
+
+		annotation SummarizationSetBy = Automatic
+
+	column Region
+		dataType: string
+		lineageTag: 6cfe1387-7abf-533e-807f-75ee0073ea13
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Tienda = m
+		mode: import
+		source =
+				let
+				    Origen = #table(
+				        type table [TiendaID = Int64.Type, Tienda = text, Ciudad = text, Region = text],
+				        {
+				            {1, "Bicis Buenos Aires", "Argentina", "Sur"},
+				            {2, "Bicis San Pablo", "Brasil", "Sur"},
+				            {3, "Bicis San Jose", "Costa Rica", "Centro"},
+				            {4, "Bicis Mexico", "Mexico", "Norte"}
+				        }
+				    )
+				in
+				    Origen
+
+	annotation PBI_ResultType = Table
+

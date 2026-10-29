@@ -1,0 +1,70 @@
+table Calendario
+	lineageTag: b58c69df-d02a-5294-82b7-e9a863921b2d
+
+	column Fecha
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: aec63d0d-f04f-50f2-aebc-4bf3aefb6e6f
+		summarizeBy: none
+		sourceColumn: Fecha
+
+		variation Variation
+			isDefault
+			relationship: 8f8b8383-40c0-4818-84f9-0e445899323f
+			defaultHierarchy: LocalDateTable_fea496ea-6704-46e1-82ec-83b94dc90e17.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Año
+		dataType: int64
+		formatString: 0
+		lineageTag: afb25375-9ffd-5308-af53-3f9153d255c9
+		summarizeBy: sum
+		sourceColumn: Año
+
+		annotation SummarizationSetBy = Automatic
+
+	column MesNum
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 83d09a6b-1bca-587d-a5db-36f8efcc604c
+		summarizeBy: sum
+		sourceColumn: MesNum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mes
+		dataType: string
+		lineageTag: 64694dbf-d244-5040-b654-215ae8fee93b
+		summarizeBy: none
+		sourceColumn: Mes
+		sortByColumn: MesNum
+
+		annotation SummarizationSetBy = Automatic
+
+	column AñoMes
+		dataType: string
+		lineageTag: 7cd98fc0-36ad-54bc-a64e-908e562e9f10
+		summarizeBy: none
+		sourceColumn: AñoMes
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Calendario = m
+		mode: import
+		source =
+				let
+				    Fechas = List.Dates(#date(2025, 1, 1), 730, #duration(1, 0, 0, 0)),
+				    Tabla = Table.FromList(Fechas, Splitter.SplitByNothing(), type table [Fecha = date]),
+				    ConAnio = Table.AddColumn(Tabla, "Año", each Date.Year([Fecha]), Int64.Type),
+				    ConMesNum = Table.AddColumn(ConAnio, "MesNum", each Date.Month([Fecha]), Int64.Type),
+				    ConMes = Table.AddColumn(ConMesNum, "Mes", each Date.ToText([Fecha], [Format = "MMM", Culture = "es-ES"]), type text),
+				    ConAnioMes = Table.AddColumn(ConMes, "AñoMes", each Date.ToText([Fecha], [Format = "yyyy-MM"]), type text)
+				in
+				    ConAnioMes
+
+	annotation PBI_ResultType = Table
+

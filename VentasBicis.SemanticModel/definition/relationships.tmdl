@@ -1,0 +1,17 @@
+relationship 70060934-e38d-55fb-9625-077fab166c0d
+	fromColumn: Ventas.Fecha
+	toColumn: Calendario.Fecha
+
+relationship a89185ab-b60a-51a0-921d-4a6daf8d4744
+	fromColumn: Ventas.ProductoID
+	toColumn: Producto.ProductoID
+
+relationship 46730ce3-a653-5e59-a757-6a603b853a19
+	fromColumn: Ventas.TiendaID
+	toColumn: Tienda.TiendaID
+
+relationship 8f8b8383-40c0-4818-84f9-0e445899323f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Calendario.Fecha
+	toColumn: LocalDateTable_fea496ea-6704-46e1-82ec-83b94dc90e17.Date
+

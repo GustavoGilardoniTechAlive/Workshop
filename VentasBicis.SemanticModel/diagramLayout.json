@@ -1,0 +1,87 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 715.20837680433681,
+            "y": 205.37460297596806
+          },
+          "nodeIndex": "Calendario",
+          "nodeLineageTag": "b58c69df-d02a-5294-82b7-e9a863921b2d",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 29.856696391588457,
+            "y": 0
+          },
+          "nodeIndex": "Producto",
+          "nodeLineageTag": "d1f1bd13-9f54-5a5a-9c0b-6a82945da364",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 36,
+            "y": 380.09572101780338
+          },
+          "nodeIndex": "Tienda",
+          "nodeLineageTag": "fece89b9-ee5e-58db-99a1-774607bc24fe",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 337.05148758792296,
+            "y": 177.27452852893202
+          },
+          "nodeIndex": "Ventas",
+          "nodeLineageTag": "1f695f91-5e68-5c9d-869b-8ca190da4821",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 843.20837680433681,
+            "y": 6.68730148798403
+          },
+          "nodeIndex": "Medidas",
+          "nodeLineageTag": "024de8f5-daa6-4884-9c10-7dcc401d6739",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}
